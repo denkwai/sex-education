@@ -7,7 +7,7 @@ const App = ({ store }) => {
 
   return (
     <div>
-      <Table language="en" answers={answers.en} />
+      {/* <Table language="en" answers={answers.en} /> */}
     </div>
   );
 };

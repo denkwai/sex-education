@@ -7,6 +7,8 @@ import ANSWERS_IT from "../../data/IT.csv";
 import ANSWERS_PT from "../../data/PT.csv";
 import ANSWERS_RU from "../../data/RU.csv";
 
+
+
 const getAllQuestions = (arr = []) => {
   const obj = arr[0];
 
@@ -28,15 +30,34 @@ const getQuestionId = (questions = [], lang = "", str = "") => {
 };
 
 const getAllAnswers = (arr = [], lang = "") => {
-  const answers = arr.map(answer => {
-    const obj = { ...answer };
+  const answers = [];
 
-    console.log(answer);
+  arr.forEach(answerSet => {
+    const questionsWithIds = Object.keys(answerSet).slice(1).map(question => {
+      return {
+        text: question,
+        id: (questions.find(q => q.translations[lang] === question)).id
+      }
+    });
+    
+    questionsWithIds.forEach(question => {
+      const oneAnswer = String(answerSet[question.text]);
 
-    return {
-      ...obj
-    };
+      if (oneAnswer) {
+        const answer = oneAnswer.split(';');
+
+        answer.forEach(atomicAnswer => {
+          answers.push({
+            questionId: question.id,
+            language: lang,
+            text: atomicAnswer
+          })
+        })
+      }
+    });
   });
+
+  return answers;
 };
 
 const questionsDE = getAllQuestions(ANSWERS_DE);
@@ -63,11 +84,22 @@ const questions = questionsEN.map((question, i) => ({
   }
 }));
 
-const answersEN = getAllAnswers(ANSWERS_EN, "en");
+console.log(JSON.stringify(questions));
 
-console.log(questions);
+const answers = [
+  ...getAllAnswers(ANSWERS_DE, "de"),
+  ...getAllAnswers(ANSWERS_EN, "en"),
+  ...getAllAnswers(ANSWERS_ES, "es"),
+  ...getAllAnswers(ANSWERS_FR, "fr"),
+  ...getAllAnswers(ANSWERS_IT, "it"),
+  ...getAllAnswers(ANSWERS_PL, "pl"),
+  ...getAllAnswers(ANSWERS_PT, "pt"),
+  ...getAllAnswers(ANSWERS_RU, "ru")
+];
 
-const answers = {
+console.log(answers);
+
+const answersSeparated = {
   de: ANSWERS_DE,
   en: ANSWERS_EN,
   es: ANSWERS_ES,

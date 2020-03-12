@@ -48,7 +48,7 @@ module.exports = {
     contentBase: [
       path.join(__dirname, "dist"),
       path.join(__dirname, "data"),
-      path.join(__dirname, "static")
+      path.join(__dirname, "public")
     ],
     compress: true,
     port: 9000
