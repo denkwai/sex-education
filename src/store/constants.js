@@ -1,6 +1,6 @@
-const QUESTIONS = [
+const DEFAULT_DATA = [
     {
-        id: 1,
+        id: 0,
         key: 'had_sex_in_last_five_years',
         translations: {
             'en': 'In the last 5 years, have you had sex at least once?',
@@ -44,7 +44,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 2,
+        id: 1,
         key: 'had_sex_no_condom_in_last_five_years',
         translations: {
             'en': 'In the last 5 years have you ever had sex without a condom?',
@@ -102,7 +102,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 3,
+        id: 2,
         key: 'how_many_partners_last_five_years',
         translations: {
             'en': 'With how many partners were you sexually active in the last 5 years?',
@@ -230,7 +230,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 4,
+        id: 3,
         key: 'which_sexual_behaviours_last_five_years',
         translations: {
             'en': 'Which sexual behaviors did you have in the last 5 years? (Choose all applicable answers)',
@@ -358,7 +358,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 5,
+        id: 4,
         key: 'sex_after_last_five_years',
         translations: {
             'en': 'In the last 5 years, have you ever had sex after:(Choose all applicable answers)',
@@ -472,7 +472,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 6,
+        id: 5,
         key: 'topic_applies_to_everyone',
         translations: {
             'en': 'Do you think that the topic of safe sex applies to everyone?',
@@ -516,7 +516,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 7,
+        id: 6,
         key: 'tested_stds_last_five_years',
         translations: {
             'en': 'In the last 5 years, have you been tested for STD’s (sexually transmitted diseases like Syphilis, Gonorrhea (The clap), Herpes simplex (HSV1), Hepatitis B, HPV)?',
@@ -672,7 +672,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 8,
+        id: 7,
         key: 'tested_hiv_last_five_years',
         translations: {
             'en': 'In the last 5 years, have you been tested for HIV?',
@@ -828,7 +828,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 9,
+        id: 8,
         key: 'where_knowledge_from',
         translations: {
             'en': 'Where does your knowledge about sexual behaviors and practices come from? (Choose all applicable answers)',
@@ -942,7 +942,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 10,
+        id: 9,
         key: 'what_safe_sex_means',
         translations: {
             'en': 'What "Safe sex" means for you? (Choose all applicable answers)',
@@ -1238,7 +1238,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 11,
+        id: 10,
         key: 'sex_gender',
         translations: {
             'en': 'Sex/Gender',
@@ -1282,7 +1282,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 12,
+        id: 11,
         key: 'age_range',
         translations: {
             'en': 'Your age is in the range:',
@@ -1410,7 +1410,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 13,
+        id: 12,
         key: 'education_level',
         translations: {
             'en': 'What is your education level?',
@@ -1524,7 +1524,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 14,
+        id: 13,
         key: 'residence_place',
         translations: {
             'en': 'Your place of residence is:',
@@ -1638,7 +1638,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 15,
+        id: 14,
         key: 'professional_situation',
         translations: {
             'en': 'What is your professional situation?',
@@ -1752,7 +1752,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 16,
+        id: 15,
         key: 'orientation',
         translations: {
             'en': 'What is your sexual orientation?',
@@ -1810,7 +1810,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 17,
+        id: 16,
         key: 'relationship_status',
         translations: {
             'en': 'What is your current relationship status?',
@@ -1938,7 +1938,7 @@ const QUESTIONS = [
         ]
     },
     {
-        id: 18,
+        id: 17,
         key: 'relationship_situation_last_five_years',
         translations: {
             'en': 'Describing your relationships from the last 5 years and the current situation, they were:',
@@ -2025,4 +2025,4 @@ const QUESTIONS = [
     }
 ];
 
-export default QUESTIONS;
+export default DEFAULT_DATA;

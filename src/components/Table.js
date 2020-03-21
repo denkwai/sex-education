@@ -1,28 +1,28 @@
 import React from "react";
 
-const Table = ({ language, answers }) => {
-  const titles = Object.keys(answers[0]);
-  const rows = answers.map(answer => {
-    const key = answer["Timestamp"];
-    const cells = Object.keys(answer).map(question => {
-      return <td key={question}>{answer[question]}</td>;
-    });
+import DEFAULT_DATA from "../store/constants";
 
-    return <tr key={key}>{cells}</tr>;
+const Table = ({ store, displayLang }) => {
+  const filteredAnsweres = store.filter(a => a.answerId);
+  const rows = filteredAnsweres.map((entry, i) => {
+    const questionData = DEFAULT_DATA.find(q => q.id === entry.questionId);
+    return (
+      <tr key={entry.id}>
+        <td>{questionData.translations[displayLang]}</td>
+        <td>{questionData.answers.find(a => a.id === entry.answerId).translations[displayLang]}</td>
+        <td>{entry.language}</td>
+      </tr>
+    )
   });
 
-  console.log(answers[0]);
   return (
     <table>
-      <caption>{language}</caption>
-      <thead>
-        <tr>
-          {titles.map(title => (
-            <th key={title}>{title}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
+      <caption>
+
+      </caption>
+      <tbody>
+        {rows}
+      </tbody>
     </table>
   );
 };

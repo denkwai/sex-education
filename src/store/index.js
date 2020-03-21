@@ -1,3 +1,5 @@
+import hash from "object-hash";
+
 import ANSWERS_PL from "../../data/PL.csv";
 import ANSWERS_DE from "../../data/DE.csv";
 import ANSWERS_EN from "../../data/EN.csv";
@@ -7,27 +9,7 @@ import ANSWERS_IT from "../../data/IT.csv";
 import ANSWERS_PT from "../../data/PT.csv";
 import ANSWERS_RU from "../../data/RU.csv";
 
-
-
-const getAllQuestions = (arr = []) => {
-  const obj = arr[0];
-
-  if (!obj) {
-    return;
-  }
-
-  return Object.keys(obj).filter(key => key !== "Timestamp");
-};
-
-const getQuestionId = (questions = [], lang = "", str = "") => {
-  for (let i = 0; i < questions.length; i++) {
-    const item = questions[i];
-
-    if (str === item.translations[lang]) {
-      return item.id;
-    }
-  }
-};
+import DEFAULT_DATA from "../store/constants";
 
 const getAllAnswers = (arr = [], lang = "") => {
   const answers = [];
@@ -36,9 +18,10 @@ const getAllAnswers = (arr = [], lang = "") => {
     const questionsWithIds = Object.keys(answerSet).slice(1).map(question => {
       return {
         text: question,
-        id: (questions.find(q => q.translations[lang] === question)).id
+        id: (DEFAULT_DATA.find(q => q.translations[lang] === question)).id
       }
     });
+    const userId = hash(answerSet);
     
     questionsWithIds.forEach(question => {
       const oneAnswer = String(answerSet[question.text]);
@@ -47,11 +30,22 @@ const getAllAnswers = (arr = [], lang = "") => {
         const answer = oneAnswer.split(';');
 
         answer.forEach(atomicAnswer => {
-          answers.push({
+          const obj = {
+            userId: userId,
             questionId: question.id,
+            questionText: question.text,
             language: lang,
             text: atomicAnswer
-          })
+          };
+          const defaultAnswer = DEFAULT_DATA.find(q => q.id === question.id).answers.find(a => a.translations[lang] === atomicAnswer);
+
+          if (defaultAnswer) {
+            obj.answerId = defaultAnswer.id;
+          }
+
+          obj.id = hash(obj);
+
+          answers.push(obj);
         })
       }
     });
@@ -59,32 +53,6 @@ const getAllAnswers = (arr = [], lang = "") => {
 
   return answers;
 };
-
-const questionsDE = getAllQuestions(ANSWERS_DE);
-const questionsEN = getAllQuestions(ANSWERS_EN);
-const questionsES = getAllQuestions(ANSWERS_ES);
-const questionsFR = getAllQuestions(ANSWERS_FR);
-const questionsIT = getAllQuestions(ANSWERS_IT);
-const questionsPL = getAllQuestions(ANSWERS_PL);
-const questionsPT = getAllQuestions(ANSWERS_PT);
-const questionsRU = getAllQuestions(ANSWERS_RU);
-
-const questions = questionsEN.map((question, i) => ({
-  id: i,
-  key: question,
-  translations: {
-    de: questionsDE[i],
-    en: questionsEN[i],
-    es: questionsES[i],
-    fr: questionsFR[i],
-    it: questionsIT[i],
-    pl: questionsPL[i],
-    pt: questionsPT[i],
-    ru: questionsRU[i]
-  }
-}));
-
-console.log(JSON.stringify(questions));
 
 const answers = [
   ...getAllAnswers(ANSWERS_DE, "de"),
@@ -97,17 +65,6 @@ const answers = [
   ...getAllAnswers(ANSWERS_RU, "ru")
 ];
 
-console.log(answers);
-
-const answersSeparated = {
-  de: ANSWERS_DE,
-  en: ANSWERS_EN,
-  es: ANSWERS_ES,
-  fr: ANSWERS_FR,
-  it: ANSWERS_IT,
-  pl: ANSWERS_PL,
-  pt: ANSWERS_PT,
-  ru: ANSWERS_RU
-};
+console.log(answers.filter(a => !a.answerId));
 
 export { answers };
