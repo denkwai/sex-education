@@ -1,4 +1,4 @@
-const DEFAULT_DATA = [
+const QUESTIONS = [
     {
         id: 0,
         key: 'had_sex_in_last_five_years',
@@ -2025,4 +2025,6 @@ const DEFAULT_DATA = [
     }
 ];
 
-export default DEFAULT_DATA;
+export {
+    QUESTIONS
+};

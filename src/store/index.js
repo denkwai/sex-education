@@ -9,7 +9,7 @@ import ANSWERS_IT from "../../data/IT.csv";
 import ANSWERS_PT from "../../data/PT.csv";
 import ANSWERS_RU from "../../data/RU.csv";
 
-import DEFAULT_DATA from "../store/constants";
+import { QUESTIONS } from "../constants/questions";
 
 const getAllAnswers = (arr = [], lang = "") => {
   const answers = [];
@@ -18,11 +18,11 @@ const getAllAnswers = (arr = [], lang = "") => {
     const questionsWithIds = Object.keys(answerSet).slice(1).map(question => {
       return {
         text: question,
-        id: (DEFAULT_DATA.find(q => q.translations[lang] === question)).id
+        id: (QUESTIONS.find(q => q.translations[lang] === question)).id
       }
     });
     const userId = hash(answerSet);
-    
+
     questionsWithIds.forEach(question => {
       const oneAnswer = String(answerSet[question.text]);
 
@@ -33,11 +33,10 @@ const getAllAnswers = (arr = [], lang = "") => {
           const obj = {
             userId: userId,
             questionId: question.id,
-            questionText: question.text,
             language: lang,
             text: atomicAnswer
           };
-          const defaultAnswer = DEFAULT_DATA.find(q => q.id === question.id).answers.find(a => a.translations[lang] === atomicAnswer);
+          const defaultAnswer = QUESTIONS.find(q => q.id === question.id).answers.find(a => a.translations[lang] === atomicAnswer);
 
           if (defaultAnswer) {
             obj.answerId = defaultAnswer.id;

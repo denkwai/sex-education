@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-import Table from "./Table";
-
+import { LANGUAGE_KEYS } from '../constants/languages';
+import LanguageSwitcher from './LanguageSwitcher';
+import Charts from './Charts';
 /**
  * @TODO: implement filtering by
  *  - country
@@ -15,21 +16,17 @@ import Table from "./Table";
  * @TODO: implement chart view
  */
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = ({
+  store = []
+}) => {
+  const [filters, setFilters] = useState([]);
+  const [language, setLanguage] = useState(LANGUAGE_KEYS[0]);
 
-    this.state = {
-      displayItems: props.store,
-      displayLang: 'en'
-    }
-  }
+  return (<>
+    <LanguageSwitcher language={language} setLanguage={setLanguage} />
 
-  render() {
-    return (
-      <Table store={this.state.displayItems} displayLang={this.state.displayLang} />
-    );
-  }
+    <Charts data={store} language={language} />
+  </>);
 }
 
 export default App;
